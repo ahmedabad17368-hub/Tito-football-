@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تيتو كرة القدم - VIP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 min-h-screen text-white overflow-x-hidden">
+
+    <!-- VIP Crown -->
+    <div id="vipCrown" class="fixed top-6 right-6 w-16 h-16 bg-yellow-400 rounded-full shadow-2xl flex items-center justify-center text-2xl z-50 hidden animate-bounce">
+        <i class="fas fa-crown"></i>
+    </div>
+
+    <!-- Particles Background -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute inset-0 bg-gradient-to-r from-yellow-400/10 via-orange-400/10 to-red-400/10 animate-pulse"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="relative z-10 pt-20 pb-8 px-6">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3 space-x-reverse">
+                <div class="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
+                    <i class="fas fa-futbol text-2xl"></i>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-black bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
+                    تيتو كرة القدم
+                </h1>
+            </div>
+            
+            <div class="flex items-center space-x-4 space-x-reverse">
+                <span id="userStatus" class="px-4 py-2 rounded-full bg-gray-800/50 text-sm font-medium hidden">
+                    مرحباً <span id="userName"></span>
+                </span>
+                
+                <div class="flex items-center space-x-2 space-x-reverse">
+                    <div id="vipToggle" class="w-5 h-5 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full shadow-lg cursor-pointer relative transition-all duration-300 hover:scale-110">
+                        <div class="absolute inset-0 w-5 h-5 bg-white rounded-full shadow-md transform translate-x-0 transition-transform duration-300" id="vipSwitch"></div>
+                    </div>
+                    <span class="font-bold text-sm" id="vipLabel">VIP</span>
+                </div>
+                
+                <button id="addVIPBtn" class="bg-gradient-to-r from-emerald-500 to-teal-600 px-6 py-3 rounded-2xl font-bold text-sm shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
+                    <i class="fas fa-star mr-1"></i> VIP مجانًا
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative z-10 max-w-7xl mx-auto px-6 pb-20">
+        
+        <!-- Search Bar -->
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-black mb-6 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+                ابحث عن أي تشكيلة في التاريخ 🎯
+            </h2>
+            <div class="max-w-3xl mx-auto relative">
+                <input type="text" id="searchInput" placeholder="مثال: ريال مدريد 2014 • ميسي • الأهلي 2023" 
+                       class="w-full p-6 text-2xl rounded-3xl bg-white/10 backdrop-blur-xl border-2 border-white/20 focus:border-yellow-400 focus:outline-none text-white placeholder-gray-300 shadow-2xl transition-all duration-300 hover:shadow-3xl">
+                <i class="fas fa-search absolute right-6 top-1/2 -translate-y-1/2 text-xl text-gray-400"></i>
+            </div>
+            <p class="mt-4 text-lg text-gray-300">اكتب اسم الفريق + السنة للحصول على التشكيلة الكاملة</p>
+        </div>
+
+        <!-- VIP Features Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+            
+            <!-- تشكيلات VIP -->
+            <div class="group bg-gradient-to-br from-slate-900/50 to-gray-900/50 backdrop-blur-xl p-10 rounded-3xl border-2 border-white/10 hover:border-yellow-400/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl vip-feature" data-feature="lineups">
+                <div class="w-20 h-20 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:rotate-12 transition-transform duration-500">
+                    <i class="fas fa-list text-3xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 text-center">تشكيلات كاملة</h3>
+                <p class="text-gray-300 mb-6 text-center leading-relaxed">كل التشكيلات من 1900 لـ2024 • أي فريق أي سنة • إحصائيات مفصلة</p>
+                <div class="flex items-center justify-center space-x-2 space-x-reverse">
+                    <div class="w-3 h-3 bg-yellow-400 rounded-full animate-ping"></div>
+                    <span class="text-sm font-bold text-yellow-400" id="lineupsVIP">🔒 VIP فقط</span>
+                </div>
+            </div>
+
+            <!-- لاعبين VIP -->
+            <div class="group bg-gradient-to-br from-slate-900/50 to-gray-900/50 backdrop-blur-xl p-10 rounded-3xl border-2 border-white/10 hover:border-emerald-400/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl vip-feature" data-feature="players">
+                <div class="w-20 h-20 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:rotate-12 transition-transform duration-500">
+                    <i class="fas fa-user-tie text-3xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 text-center">لاعبين شامل</h3>
+                <p class="text-gray-300 mb-6 text-center leading-relaxed">سيرة كاملة • إحصائيات 20 سنة • فيديوهات • مقارنات • صفقات</p>
+                <div class="flex items-center justify-center space-x-2 space-x-reverse">
+                    <div class="w-3 h-3 bg-emerald-400 rounded-full animate-ping"></div>
+                    <span class="text-sm font-bold text-emerald-400" id="playersVIP">🔒 VIP فقط</span>
+                </div>
+            </div>
+
+            <!-- ألعاب VIP -->
+            <div class="group bg-gradient-to-br from-slate-900/50 to-gray-900/50 backdrop-blur-xl p-10 rounded-3xl border-2 border-white/10 hover:border-pink-400/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl vip-feature" data-feature="games">
+                <div class="w-20 h-20 bg-gradient-to-r from-pink-500 to-rose-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:rotate-12 transition-transform duration-500">
+                    <i class="fas fa-gamepad text-3xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 text-center">ألعاب تفاعلية</h3>
+                <p class="text-gray-300 mb-6 text-center leading-relaxed">بينجو • خمن اللاعب • تحدي 30 • لوحة الشرف • ملايين النقاط</p>
+                <div class="flex items-center justify-center space-x-2 space-x-reverse">
+                    <div class="w-3 h-3 bg-pink-400 rounded-full animate-ping"></div>
+                    <span class="text-sm font-bold text-pink-400" id="gamesVIP">🔒 VIP فقط</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Games Section (VIP Only) -->
+        <section id="gamesSection" class="grid md:grid-cols-3 gap-8 mb-20 opacity-0 translate-y-10 transition-all duration-700 vip-only">
+            <!-- بينجو -->
+            <div class="bg-gradient-to-br from-emerald-600 to-teal-700 p-8 rounded-3xl text-center cursor-pointer hover:scale-105 transition-all duration-300 shadow-2xl border-4 border-emerald-400/50 group" onclick="startBingo()">
+                <i class="fas fa-dice text-4xl mb-4 group-hover:animate-spin"></i>
+                <h4 class="text-2xl font-bold mb-2">بينجو كورة</h4>
+                <p class="text-emerald-100">شبكة 5x5 • أحداث الماتش</p>
+            </div>
+            
+            <!-- خمن اللاعب -->
+            <div class="bg-gradient-to-br from-orange-600 to-red-700 p-8 rounded-3xl text-center cursor-pointer hover:scale-105 transition-all duration-300 shadow-2xl border-4 border-orange-400/50 group" onclick="startGuessPlayer()">
+                <i class="fas fa-question-circle text-4xl mb-4 group-hover:animate-pulse"></i>
+                <h4 class="text-2xl font-bold mb-2">خمن اللاعب</h4>
+                <p class="text-orange-100">5 ثواني فقط!</p>
+            </div>
+            
+            <!-- تحدي 30 -->
+            <div class="bg-gradient-to-br from-purple-600 to-pink-700 p-8 rounded-3xl text-center cursor-pointer hover:scale-105 transition-all duration-300 shadow-2xl border-4 border-purple-400/50 group" onclick="startChallenge30()">
+                <i class="fas fa-bolt text-4xl mb-4 group-hover:animate-bounce"></i>
+                <h4 class="text-2xl font-bold mb-2">تحدي 30</h4>
+                <p class="text-purple-100">30 سؤال في 30 ثانية</p>
+            </div>
+        </section>
+
+        <!-- VIP Stats -->
+        <div class="grid md:grid-cols-4 gap-6 mb-20 opacity-0 translate-y-10 transition-all duration-1000 vip-only">
+            <div class="text-center p-8 bg-white/5 backdrop-blur-xl rounded-3xl border border-white/20">
+                <div class="text-3xl font-black text-yellow-400 mb-2" id="vipMatches">12,847</div>
+                <div class="text-sm text-gray-400 uppercase tracking-wider">مباريات</div>
+            </div>
+            <div class="text-center p-8 bg-white/5 backdrop-blur-xl rounded-3xl border border-white/20">
+                <div class="text-3xl font-black text-emerald-400 mb-2" id="vipPlayers">1.2M</div>
+                <div class="text-sm text-gray-400 uppercase tracking-wider">لاعبين</div>
+            </div>
+            <div class="text-center p-8 bg-white/5 backdrop-blur-xl rounded-3xl border border-white/20">
+                <div class="text-3xl font-black text-pink-400 mb-2" id="vipGames">247K</div>
+                <div class="text-sm text-gray-400 uppercase tracking-wider">لعبات</div>
+            </div>
+            <div class="text-center p-8 bg-white/5 backdrop-blur-xl rounded-3xl border border-white/20">
+                <div class="text-3xl font-black text-cyan-400 mb-2" id="vipScore">9,847</div>
+                <div class="text-sm text-gray-400 uppercase tracking-wider">نقاطك</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bingo Modal -->
+    <div id="bingoModal" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-50 hidden">
+        <div class="bg-gray-900 p-8 rounded-3xl max-w-lg w-full mx-4">
+            <h3 class="text-2xl font-bold mb-6 text-center text-yellow-400">🎲 بينجو كرة قدم</h3>
+            <div id="bingoBoard" class="grid grid-cols-5 gap-2 mb-6"></div>
+            <div class="text-center">
+                <span id="bingoScore" class="text-xl font-bold text-emerald-400">0</span> / 25
+                <button onclick="closeBingo()" class="ml-4 bg-red-600 px-6 py-2 rounded-xl font-bold">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // VIP System
+        let isVIP = localStorage.getItem('titoVIP') === 'true';
+        let userName = localStorage.getItem('titoUserName') || 'لاعب';
+        let score = parseInt(localStorage.getItem('titoScore')) || 0;
+
+        // Games Data
+        const players = [
+            { name: 'ليونيل ميسي', image: 'https://via.placeholder.com/200x200/87CEEB/fff?text=MS', hint: 'الأرجنتين' },
+            { name: 'كريستيانو رونالدو', image: 'https://via.placeholder.com/200x200/FF6B6B/fff?text=CR7', hint: 'البرتغال' },
+            { name: 'نيمار جونيور', image: 'https://via.placeholder.com/200x200/4ECDC4/000?text=NM', hint: 'البرازيل' },
+            { name: 'محمد صلاح', image: 'https://via.placeholder.com/200x200/FF9F43/000?text=MS', hint: 'مصر' }
+        ];
+
+        const bingoEvents = ['هدف', 'كارت أحمر', 'تبديل', 'فاول', 'تمريرة حاسمة', 'حراسة', 'ركلة ركنية', 'خطأ تحكيمي'];
+
+        // Initialize
+        function initVIP() {
+            const vipToggle = document.getElementById('vipToggle');
+            const vipSwitch = document.getElementById('vipSwitch');
+            const vipLabel = document.getElementById('vipLabel');
+            const vipCrown = document.getElementById('vipCrown');
+            const userStatus = document.getElementById('userStatus');
+
+            document.getElementById('userName').textContent = userName;
+            document.getElementById('vipScore').textContent = score;
+
+            if (isVIP) {
+                vipSwitch.style.transform = 'translate-x-full';
+                vipToggle.style.background = 'linear-gradient(to right, #10b981, #059669)';
+                vipLabel.textContent = 'VIP ✅';
+                vipCrown.classList.remove('hidden');
+                userStatus.classList.remove('hidden');
+                showVIPContent();
+            }
+        }
+
+        // Show VIP Content
+        function showVIPContent() {
+            document.querySelectorAll('.vip-feature').forEach(feature => {
+                const lockSpan = feature.querySelector('span[id$="VIP"]');
+                lockSpan.textContent = '✅ VIP مفتوح';
+                lockSpan.className = 'text-sm font-bold text-emerald-400';
+                feature.style.borderColor = '#10b98150';
+            });
+
+            document.getElementById('gamesSection').style.opacity = '1';
+            document.getElementById('gamesSection').style.transform = 'translateY(0)';
+            
+            document.querySelectorAll('.vip-only').forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+
+            animateNumbers();
+        }
+
+        // Animate Stats
+        function animateNumbers() {
+            const numbers = {
+                vipMatches: 12847,
+                vipPlayers: 1200000,
+                vipGames: 247000,
+                vipScore: score
+            };
+
+            Object.entries(numbers).forEach(([id, target]) => {
+                const el = document.getElementById(id);
+                let current = 0;
+                const increment = target / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        el.textContent = Math.floor(target).toLocaleString();
+                        clearInterval(timer);
+                    } else {
+                        el.textContent = Math.floor(current).toLocaleString();
+                    }
+                }, 50);
+            });
+        }
+
+        // VIP Toggle
+        document.getElementById('vipToggle').onclick = () => {
+            const vipSwitch = document.getElementById('vipSwitch');
+            const vipLabel = document.getElementById('vipLabel');
+            const vipCrown = document.getElementById('vipCrown');
+            const userStatus = document.getElementById('userStatus');
+
+            isVIP = !isVIP;
+            localStorage.setItem('titoVIP', isVIP);
+
+            if (isVIP) {
+                vipSwitch.style.transform = 'translate-x-full';
+                document.getElementById('vipToggle').style.background = 'linear-gradient(to right, #10b981, #059669)';
+                vipLabel.textContent = 'VIP ✅';
+                vipCrown.classList.remove('hidden');
+                userStatus.classList.remove('hidden');
+                showVIPContent();
+            } else {
+                vipSwitch.style.transform = 'translate-x-0';
+                document.getElementById('vipToggle').style.background = 'linear-gradient(to right, #6b7280, #9ca3af)';
+                vipLabel.textContent = 'VIP';
+                vipCrown.classList.add('hidden');
+                userStatus.classList.add('hidden');
+            }
+        };
+
+        // Add VIP
+        document.getElementById('addVIPBtn').onclick = () => {
+            const name = prompt('اكتب اسمك عشان تصير VIP 👑') || 'لاعب';
+            userName = name;
+            localStorage.setItem('titoUserName', name);
+            document.getElementById('userName').textContent = name;
+            
+            isVIP = true;
+            localStorage.setItem('titoVIP', 'true');
+            showVIPContent();
+            
+            // Celebration
+            document.body.style.animation = 'shake 0.5s';
+        };
+
+        // Search
+        document.getElementById('searchInput').onkeypress = (e) => {
+            if (e.key === 'Enter') {
+                const query = e.target.value;
+                if (isVIP) {
+                    alert(`🔍 جاري البحث VIP عن: "${query}"\n✅ تشكيلة كاملة + إحصائيات + فيديوهات!`);
+                } else {
+                    alert(`🔍 "${query}"\n🔒 اضغط VIP مجانًا عشان تشوف التفاصيل!`);
+                }
+            }
+        };
+
+        // Games
+        function startBingo() {
+            document.getElementById('bingoModal').classList.remove('hidden');
+            let board = '';
+            for(let i = 0; i < 25; i++) {
+                board += `<div class="w-16 h-16 bg-yellow-400/30 rounded-lg flex items-center justify-center font-bold text-lg cursor-pointer hover:bg-yellow-400/60 transition-colors" onclick="markBingo(this)">${bingoEvents[i%5] || 'فرصة'}</div>`;
+            }
+            document.getElementById('bingoBoard').innerHTML = board;
+        }
+
+        function markBingo(cell) {
+            cell.style.background = '#10b981';
+            cell.style.color = 'white';
+            score += 10;
+            document.getElementById('bingoScore').textContent = score;
+            localStorage.setItem('titoScore', score);
+        }
+
+        function closeBingo() {
+            document.getElementById('bingoModal').classList.add('hidden');
+        }
+
+        function startGuessPlayer() {
+            if (!isVIP) return alert('🔒 VIP فقط!');
+            const player = players[Math.floor(Math.random() * players.length)];
+            alert(`صورة: ${player.hint}\nخمن مين؟\nالإجابة: ${player.name}\n+50 نقطة!`);
+            score += 50;
+            localStorage.setItem('titoScore', score);
+        }
+
+        function startChallenge30() {
+            if (!isVIP) return alert('🔒 VIP فقط!');
+            alert('تحدي 30 جاهز!\n30 سؤال في 30 ثانية\n+100 نقطة!');
+            score += 100;
+            localStorage.setItem('titoScore', score);
+        }
+
+        // Shake Animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-5px); }
+                75% { transform: translateX(5px); }
+            }
+            @keyframes float {
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(-10px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Load
+        window.onload = initVIP;
+    </script>
+</body>
+</html>
+
